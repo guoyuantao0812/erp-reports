@@ -54,11 +54,16 @@ tr:hover td { background: #fafbfc; }
 .col-val3  { width: 14%; }
 .col-name  { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* 保质期预警表专用列宽：批次库存窄一点，生产日期缩小30% */
+/* 保质期预警表专用列宽：商品批次和批次库存位置对调，剩余天数22% */
+.col-shelf-batch { width: 20%; }
 .col-shelf-stock { width: 14%; }
-.col-shelf-date  { width: 21%; }
+.col-shelf-days { width: 22%; }
 /* 保质期预警的名称列允许换行，完整显示 */
 .col-name-wrap { word-break: break-all; line-height: 1.5; padding-left: 0; }
+
+/* 原辅料预警表专用列宽 */
+.col-raw-category { width: 16%; }
+.col-raw-limit { width: 14%; }
 
 /* 库存数值加粗 */
 .num-bold { font-weight: 700; }
@@ -70,7 +75,7 @@ tr:hover td { background: #fafbfc; }
 <!-- ====== 头部 ====== -->
 <div class="header">
 <h1>库存巡检</h1>
-<div class="meta">数据来源：万里牛ERP | 生成时间：2026-07-11 14:46:16<br>库存产品总数：95 | 有库存产品：84</div>
+<div class="meta">数据来源：万里牛ERP | 生成时间：2026-07-11 14:54:14<br>库存产品总数：95 | 有库存产品：84</div>
 </div>
 
 <!-- ====== 统计卡片 ====== -->
@@ -136,14 +141,14 @@ tr:hover td { background: #fafbfc; }
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col><col class="col-shelf-stock"><col class="col-shelf-date"><col class="col-val3"><col style="width:3%">
+<col class="col-level"><col><col class="col-shelf-batch"><col class="col-shelf-stock"><col class="col-shelf-days"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
 <th class="text-center">预警等级</th>
 <th>商品名称</th>
+<th>商品批次</th>
 <th class="text-right">批次库存</th>
-<th class="text-right nowrap">生产日期</th>
 <th class="text-right">剩余天数</th>
 <th></th>
 </tr>
@@ -153,45 +158,45 @@ tr:hover td { background: #fafbfc; }
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="小黑猪脊膘油300g">小黑猪脊膘油300g</td>
+<td class="nowrap">20260321</td>
 <td class="text-right nowrap num-bold">158</td>
-<td class="nowrap text-right">2026-03-20</td>
-<td class="text-right nowrap text-warning">67天（37%）</td>
+<td class="text-right nowrap text-warning">67天 (37%)</td>
 <td></td>
 </tr>
 
 <tr>
 <td class="text-center"><span class="level level-urgent">紧急</span></td>
 <td class="col-name-wrap" title="S-原浆特酿-200ml">S-原浆特酿-200ml</td>
+<td class="nowrap">20241118</td>
 <td class="text-right nowrap num-bold">359</td>
-<td class="nowrap text-right">2024-11-17</td>
-<td class="text-right nowrap ">129天（17%）</td>
+<td class="text-right nowrap ">129天 (17%)</td>
 <td></td>
 </tr>
 
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="川香红油-210ml">川香红油-210ml</td>
+<td class="nowrap">20260109</td>
 <td class="text-right nowrap num-bold">626</td>
-<td class="nowrap text-right">2026-01-08</td>
-<td class="text-right nowrap text-warning">181天（49%）</td>
+<td class="text-right nowrap text-warning">181天 (49%)</td>
 <td></td>
 </tr>
 
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="酿功夫-黑松露原汁酱油-700ml">酿功夫-黑松露原汁酱油-700ml</td>
+<td class="nowrap">20250410</td>
 <td class="text-right nowrap num-bold">227</td>
-<td class="nowrap text-right">2025-04-09</td>
-<td class="text-right nowrap text-warning">262天（36%）</td>
+<td class="text-right nowrap text-warning">262天 (36%)</td>
 <td></td>
 </tr>
 
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="ef10305">ef10305</td>
+<td class="nowrap">20250429</td>
 <td class="text-right nowrap num-bold">239</td>
-<td class="nowrap text-right">2025-04-28</td>
-<td class="text-right nowrap text-warning">291天（39%）</td>
+<td class="text-right nowrap text-warning">291天 (39%)</td>
 <td></td>
 </tr>
 
@@ -204,13 +209,14 @@ tr:hover td { background: #fafbfc; }
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col><col class="col-val1"><col class="col-val2"><col style="width:3%">
+<col class="col-level"><col><col class="col-raw-category"><col class="col-raw-limit"><col class="col-val1"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
 <th class="text-center">预警等级</th>
 <th>物料名称</th>
-<th class="text-right">类别</th>
+<th class="text-right">分类</th>
+<th class="text-right">预警限</th>
 <th class="text-right">库存数量</th>
 <th></th>
 </tr>
@@ -220,7 +226,8 @@ tr:hover td { background: #fafbfc; }
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name" title="吊牌-通用2024">吊牌-通用2024</td>
-<td class="text-right nowrap">标贴吊牌</td>
+<td class="text-right nowrap">标签吊牌</td>
+<td class="text-right nowrap">10,000</td>
 <td class="text-right nowrap text-warning num-bold">12,614</td>
 <td></td>
 </tr>
@@ -228,7 +235,8 @@ tr:hover td { background: #fafbfc; }
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name" title="热缩套-酱油-全包黑色-500ml">热缩套-酱油-全包黑色-500ml</td>
-<td class="text-right nowrap">包材外盒</td>
+<td class="text-right nowrap">包装外盒</td>
+<td class="text-right nowrap">10,000</td>
 <td class="text-right nowrap text-warning num-bold">16,158</td>
 <td></td>
 </tr>
@@ -244,14 +252,14 @@ tr:hover td { background: #fafbfc; }
 <b style="color:#e74c3c">紧急</b> = 可售天数 ≤ 15天，<b style="color:#d4ac0d"> 关注</b> = 可售天数 ≤ 30天
 </div>
 <div style="padding: 8px 0;">
-<b>原辅料预警规则</b><br>
-数据来源：虚拟仓（原料辅料）WHXN｜预警下限 = 商品档案「采购批量」(purchase_num)，为0时默认5,000<br>
-<b style="color:#e74c3c">紧急</b> = 库存 ≤ 预警下限，<b style="color:#d4ac0d">关注</b> = 预警下限 &lt; 库存 ≤ 预警下限×2｜仅统计 WHXN 仓库中库存 &gt; 0 的物料
-</div>
-<div style="padding: 8px 0;">
 <b>保质期预警规则</b><br>
 筛选：剩余保质期 &lt; 总保质期的50%（即保质期已过半）｜仅列出有批次详情且批次库存&gt;0的产品<br>
 <b style="color:#e74c3c">紧急</b> = 剩余天数 &lt; 总保质期的1/3 或 &lt; 60天，其余为<b style="color:#d4ac0d">关注</b>
+</div>
+<div style="padding: 8px 0;">
+<b>原辅料预警规则</b><br>
+数据来源：虚拟仓（原料辅料）WHXN｜预警下限 = 商品档案「采购批量」(purchase_num)<br>
+<b style="color:#e74c3c">紧急</b> = 库存 ≤ 预警下限，<b style="color:#d4ac0d">关注</b> = 预警下限 &lt; 库存 ≤ 预警下限×2｜仅统计 WHXN 仓库中库存 &gt; 0 且有采购批量的物料
 </div>
 </div>
 
