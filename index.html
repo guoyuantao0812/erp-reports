@@ -1,98 +1,108 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>库存巡检 - 2026-07-11</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; background: #f5f5f5; color: #333; line-height: 1.6; }
-    .container { max-width: 420px; margin: 0 auto; padding: 12px; }
-    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 16px; border-radius: 0; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25); }
-    .header h1 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .header .meta { font-size: 10px; opacity: 0.85; line-height: 1.5; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 10px 16px; }
-    .stat-card { background: white; border-radius: 10px; padding: 12px 6px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .stat-card .num { font-size: 20px; font-weight: 700; }
-    .stat-card .label { font-size: 9px; color: #666; margin-top: 4px; line-height: 1.3; }
-    .stat-card.danger .num { color: #e74c3c; }
-    .stat-card.warning .num { color: #f39c12; }
-    .section { background: white; border-radius: 10px; margin: 0 10px 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .section-header { padding: 12px 14px; font-size: 13px; font-weight: 600; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between; }
-    .section-header .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; color: white; }
-    .badge-red { background: #e74c3c; }
-    .badge-yellow { background: #f39c12; }
-    .data-table { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; font-size: 10px; }
-    th { background: #f8f9fa; padding: 8px 2px; font-weight: 600; text-align: left; font-size: 8px; color: #888; text-transform: none; border-bottom: 1px solid #eee; white-space: nowrap; }
-    td { padding: 8px 2px; border-bottom: 1px solid #f5f5f5; }
-    tr:last-child td { border-bottom: none; }
-    .col-level { width: 14%; text-align: center; }
-    .col-val1 { width: 18%; }
-    .col-val2 { width: 18%; }
-    .col-val3 { width: 18%; }
-    .col-name { width: 32%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
-    .col-shelf-stock { width: 15%; }
-    .col-shelf-date { width: 20%; }
-    .col-name-wrap { width: 35%; word-break: break-all; line-height: 1.5; padding-left: 0; }
-    .text-center { text-align: center; }
-    .text-right { text-align: right; }
-    .text-danger { color: #e74c3c; font-weight: 600; }
-    .text-warning { color: #f39c12; font-weight: 600; }
-    .num-bold { font-weight: 700; }
-    .nowrap { white-space: nowrap; }
-    .level { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 9px; font-weight: 500; }
-    .level-urgent { background: #fdecea; color: #e74c3c; border: 1px solid #f5c6cb; }
-    .level-attention { background: #fff9e6; color: #d4ac0d; border: 1px solid #f0e0a0; }
-    .empty-row td { text-align: center; padding: 20px; color: #999; font-size: 11px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>库存巡检 - 2026-07-11</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #333; }
+.container { max-width: 420px; margin: 0 auto; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 16px; border-radius: 0; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25); }
+.header h1 { font-size: 20px; margin-bottom: 6px; text-align: center; }
+.header .meta { font-size: 10px; opacity: 0.9; line-height: 1.5; text-align: center; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 10px 16px; }
+.stat-card { background: white; padding: 12px 6px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center; }
+.stat-card .num { font-size: 20px; font-weight: 700; }
+.stat-card .label { font-size: 9px; color: #888; margin-top: 4px; line-height: 1.3; }
+.stat-card.danger .num { color: #e74c3c; }
+.stat-card.warning .num { color: #f39c12; }
+.section { background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin: 0 10px 12px; overflow: hidden; }
+.section-header { padding: 12px 14px; font-size: 13px; font-weight: 600; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; }
+.section-header .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; color: white; }
+.badge-red { background: #e74c3c; }
+.badge-orange { background: #f39c12; }
+/* ====== 全局表格布局 ======
+ * 所有表格统一 5 列骨架，用百分比确保左右对齐：
+ *   col-1: 预警等级    13%
+ *   col-2: 名称        32%（自动填充剩余空间）
+ *   col-3: 数值列1     19%
+ *   col-4: 数值列2     19%
+ *   col-5: 数值列3     17%
+ * 4 列表格（如原辅料）省略 col-5，名称自动扩展至 51%。
+ */
+table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+th { background: #f8f9fa; padding: 8px 2px; text-align: left; font-size: 8px; color: #666; font-weight: 600; white-space: nowrap; }
+td { padding: 8px 2px; border-top: 1px solid #f5f5f5; font-size: 10px; line-height: 1.4; }
+tr:hover td { background: #fafbfc; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.text-danger { color: #e74c3c; font-weight: 600; }
+.text-warning { color: #f39c12; font-weight: 600; }
+.text-muted { color: #95a5a6; }
+.level { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 9px; font-weight: 600; white-space: nowrap; }
+.level-urgent { background: #fdecea; color: #e74c3c; border: 1px solid #f5c6cb; }
+.level-attention { background: #fff9e6; color: #d4ac0d; border: 1px solid #f0e0a0; }
+.note { padding: 12px 16px; background: #f8f9fa; font-size: 9px; color: #666; border-top: 1px solid #f0f0f0; line-height: 1.7; }
+.nowrap { white-space: nowrap; }
+.data-table { overflow-x: auto; }
+
+/* 统一列宽：全部基于百分比，保证跨模块左右对齐 */
+.col-level { width: 13%; }
+.col-val1  { width: 16%; }
+.col-val2  { width: 14%; }
+.col-val3  { width: 14%; }
+.col-name  { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* 保质期预警表专用列宽：批次库存窄一点，生产日期缩小30% */
+.col-shelf-stock { width: 14%; }
+.col-shelf-date  { width: 21%; }
+/* 保质期预警的名称列允许换行，完整显示 */
+.col-name-wrap { word-break: break-all; line-height: 1.5; padding-left: 0; }
+
+/* 库存数值加粗 */
+.num-bold { font-weight: 700; }
+</style>
 </head>
 <body>
 <div class="container">
 
 <!-- ====== 头部 ====== -->
 <div class="header">
-  <h1>库存巡检</h1>
-  <div class="meta">
-    数据来源：万里牛ERP<br>
-    生成时间：14:30:17<br>
-    库存产品：95 个 | 有库存：84 个
-  </div>
+<h1>库存巡检</h1>
+<div class="meta">数据来源：万里牛ERP | 生成时间：2026-07-11 14:38:26<br>库存产品总数：95 | 有库存产品：84</div>
 </div>
 
 <!-- ====== 统计卡片 ====== -->
-<div class="stats-grid">
-  <div class="stat-card warning">
-    <div class="num">1</div>
-    <div class="label">库存预警</div>
-  </div>
-  <div class="stat-card danger">
-    <div class="num">5</div>
-    <div class="label">保质期预警批次</div>
-  </div>
-  <div class="stat-card warning">
-    <div class="num">2</div>
-    <div class="label">原辅料预警</div>
-  </div>
+<div class="stats">
+<div class="stat-card warning">
+<div class="num">1</div>
+<div class="label">库存预警</div>
+</div>
+<div class="stat-card danger">
+<div class="num">5</div>
+<div class="label">保质期预警批次</div>
+</div>
+<div class="stat-card warning">
+<div class="num">0/2</div>
+<div class="label">原辅料预警 紧急/关注</div>
+</div>
 </div>
 
 <!-- ====== 库存预警 ====== -->
 <div class="section">
-<div class="section-header">
-  <span>库存预警</span>
-  <span class="badge badge-yellow">1</span>
-</div>
+<div class="section-header">库存预警 <span class="badge badge-red">1</span></div>
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col class="col-name"><col class="col-val1"><col class="col-val2"><col class="col-val3"><col style="width:3%">
+<col class="col-level"><col><col class="col-val1"><col class="col-val2"><col class="col-val3"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
 <th class="text-center">预警等级</th>
 <th>商品名称</th>
 <th class="text-right">可用库存</th>
-<th class="text-right">日均销量</th>
+<th class="text-right nowrap">日均销量</th>
 <th class="text-right">可售天数</th>
 <th></th>
 </tr>
@@ -100,11 +110,11 @@
 <tbody>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name" title="珍珠棉-大瓶">珍珠棉-大瓶</td>
-<td class="text-right nowrap">1,275</td>
+<td class="text-right nowrap num-bold">1,275</td>
 <td class="text-right nowrap">56.2</td>
-<td class="text-right nowrap text-warning num-bold">22.7</td>
+<td class="text-right nowrap text-warning">22天</td>
 <td></td>
 </tr>
 
@@ -113,21 +123,18 @@
 
 <!-- ====== 保质期预警 ====== -->
 <div class="section">
-<div class="section-header">
-  <span>保质期预警</span>
-  <span class="badge badge-red">5</span>
-</div>
+<div class="section-header">保质期预警 <span class="badge badge-orange">5个批次</span></div>
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col class="col-shelf-stock"><col class="col-shelf-date"><col class="col-name-wrap"><col class="col-val1"><col style="width:3%">
+<col class="col-level"><col><col class="col-shelf-stock"><col class="col-shelf-date"><col class="col-val3"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
 <th class="text-center">预警等级</th>
-<th class="text-right">批次库存</th>
-<th>生产日期</th>
 <th>商品名称</th>
+<th class="text-right">批次库存</th>
+<th class="text-right nowrap">生产日期</th>
 <th class="text-right">剩余天数</th>
 <th></th>
 </tr>
@@ -135,47 +142,47 @@
 <tbody>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
-<td class="col-shelf-stock text-right nowrap">158</td>
-<td class="col-shelf-date nowrap">2026-03-20</td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="小黑猪脊膘油300g">小黑猪脊膘油300g</td>
-<td class="text-right nowrap text-warning num-bold">67</td>
+<td class="text-right nowrap num-bold">158</td>
+<td class="nowrap text-right">2026-03-20</td>
+<td class="text-right nowrap text-warning">67天（37%）</td>
 <td></td>
 </tr>
 
 <tr>
-<td class="text-center"><span class="level level-danger">紧急</span></td>
-<td class="col-shelf-stock text-right nowrap">359</td>
-<td class="col-shelf-date nowrap">2024-11-17</td>
+<td class="text-center"><span class="level level-urgent">紧急</span></td>
 <td class="col-name-wrap" title="S-原浆特酿-200ml">S-原浆特酿-200ml</td>
-<td class="text-right nowrap text-danger num-bold">129</td>
+<td class="text-right nowrap num-bold">359</td>
+<td class="nowrap text-right">2024-11-17</td>
+<td class="text-right nowrap ">129天（17%）</td>
 <td></td>
 </tr>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
-<td class="col-shelf-stock text-right nowrap">626</td>
-<td class="col-shelf-date nowrap">2026-01-08</td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="川香红油-210ml">川香红油-210ml</td>
-<td class="text-right nowrap text-warning num-bold">181</td>
+<td class="text-right nowrap num-bold">626</td>
+<td class="nowrap text-right">2026-01-08</td>
+<td class="text-right nowrap text-warning">181天（49%）</td>
 <td></td>
 </tr>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
-<td class="col-shelf-stock text-right nowrap">227</td>
-<td class="col-shelf-date nowrap">2025-04-09</td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="酿功夫-黑松露原汁酱油-700ml">酿功夫-黑松露原汁酱油-700ml</td>
-<td class="text-right nowrap text-warning num-bold">262</td>
+<td class="text-right nowrap num-bold">227</td>
+<td class="nowrap text-right">2025-04-09</td>
+<td class="text-right nowrap text-warning">262天（36%）</td>
 <td></td>
 </tr>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
-<td class="col-shelf-stock text-right nowrap">239</td>
-<td class="col-shelf-date nowrap">2025-04-28</td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name-wrap" title="S-原浆特酿（新条码462）-200ml">S-原浆特酿（新条码462）-200ml</td>
-<td class="text-right nowrap text-warning num-bold">291</td>
+<td class="text-right nowrap num-bold">239</td>
+<td class="nowrap text-right">2025-04-28</td>
+<td class="text-right nowrap text-warning">291天（39%）</td>
 <td></td>
 </tr>
 
@@ -184,19 +191,17 @@
 
 <!-- ====== 原辅料预警 ====== -->
 <div class="section">
-<div class="section-header">
-  <span>原辅料预警</span>
-  <span class="badge badge-yellow">2</span>
-</div>
+<div class="section-header">原辅料预警 <span class="badge badge-red">2</span></div>
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col class="col-name"><col class="col-val1"><col style="width:3%">
+<col class="col-level"><col><col class="col-val1"><col class="col-val2"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
 <th class="text-center">预警等级</th>
 <th>物料名称</th>
+<th class="text-right">类别</th>
 <th class="text-right">库存数量</th>
 <th></th>
 </tr>
@@ -204,15 +209,17 @@
 <tbody>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name" title="吊牌-通用2024">吊牌-通用2024</td>
+<td class="text-right nowrap"></td>
 <td class="text-right nowrap text-warning num-bold">12,614</td>
 <td></td>
 </tr>
 
 <tr>
-<td class="text-center"><span class="level level-warning">关注</span></td>
+<td class="text-center"><span class="level level-attention">关注</span></td>
 <td class="col-name" title="热缩套-酱油-全包黑色-500ml">热缩套-酱油-全包黑色-500ml</td>
+<td class="text-right nowrap"></td>
 <td class="text-right nowrap text-warning num-bold">16,158</td>
 <td></td>
 </tr>
