@@ -1,273 +1,308 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>万里牛ERP库存巡检 - 2026-07-11</title>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #333; }
-.container { max-width: 420px; margin: 0 auto; }
-.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 16px; border-radius: 0; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25); }
-.header h1 { font-size: 20px; margin-bottom: 6px; text-align: center; }
-.header .meta { font-size: 10px; opacity: 0.9; line-height: 1.5; text-align: center; }
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 10px 16px; }
-.stat-card { background: white; padding: 12px 6px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: center; }
-.stat-card .num { font-size: 20px; font-weight: 700; }
-.stat-card .label { font-size: 9px; color: #888; margin-top: 4px; line-height: 1.3; }
-.stat-card.danger .num { color: #e74c3c; }
-.stat-card.warning .num { color: #f39c12; }
-.section { background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin: 0 10px 12px; overflow: hidden; }
-.section-header { padding: 12px 14px; font-size: 13px; font-weight: 600; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 8px; }
-.section-header .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; color: white; }
-.badge-red { background: #e74c3c; }
-.badge-orange { background: #f39c12; }
-/* ====== 全局表格布局 ======
- * 所有表格统一 5 列骨架，用百分比确保左右对齐：
- *   col-1: 预警等级    13%
- *   col-2: 名称        32%（自动填充剩余空间）
- *   col-3: 数值列1     19%
- *   col-4: 数值列2     19%
- *   col-5: 数值列3     17%
- * 4 列表格（如原辅料）省略 col-5，名称自动扩展至 51%。
- */
-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-th { background: #f8f9fa; padding: 8px 2px; text-align: left; font-size: 8px; color: #666; font-weight: 600; white-space: nowrap; }
-td { padding: 8px 2px; border-top: 1px solid #f5f5f5; font-size: 10px; line-height: 1.4; }
-tr:hover td { background: #fafbfc; }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
-.text-danger { color: #e74c3c; font-weight: 600; }
-.text-warning { color: #f39c12; font-weight: 600; }
-.text-muted { color: #95a5a6; }
-.level { display: inline-block; padding: 2px 6px; border-radius: 10px; font-size: 9px; font-weight: 600; white-space: nowrap; }
-.level-urgent { background: #fdecea; color: #e74c3c; border: 1px solid #f5c6cb; }
-.level-attention { background: #fff9e6; color: #d4ac0d; border: 1px solid #f0e0a0; }
-.note { padding: 12px 16px; background: #f8f9fa; font-size: 9px; color: #666; border-top: 1px solid #f0f0f0; line-height: 1.7; }
-.nowrap { white-space: nowrap; }
-.data-table { overflow-x: auto; }
-
-/* 统一列宽：全部基于百分比，保证跨模块左右对齐 */
-.col-level { width: 13%; }
-.col-val1  { width: 14%; }
-.col-val2  { width: 16%; }
-.col-val3  { width: 14%; }
-.col-name  { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-/* 库存预警表专用列宽：日均销量16%，可用库存14% */
-.col-stock-sales { width: 16%; }
-.col-stock-avail { width: 14%; }
-
-/* 保质期预警表专用列宽：商品批次14%居中对齐，批次库存10%，剩余天数20% */
-.col-shelf-batch { width: 14%; text-align: center; }
-.col-shelf-stock { width: 10%; }
-.col-shelf-days { width: 20%; }
-/* 保质期预警的名称列允许换行，完整显示 */
-.col-name-wrap { word-break: break-all; line-height: 1.5; padding-left: 0; }
-
-/* 原辅料预警表专用列宽：分类、预警限、库存数量都14% */
-.col-raw-category { width: 14%; }
-.col-raw-limit { width: 14%; }
-.col-raw-avail { width: 14%; }
-
-/* 库存数值加粗 */
-.num-bold { font-weight: 700; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万里牛ERP库存巡检报告 - 2026-07-12</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f7fa; color: #333; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; margin-bottom: 24px; }
+        .header h1 { font-size: 24px; margin-bottom: 8px; }
+        .header .meta { font-size: 14px; opacity: 0.9; }
+        .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+        .summary-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-align: center; }
+        .summary-card .card-title { font-size: 13px; color: #888; margin-bottom: 8px; }
+        .summary-card .card-value { font-size: 28px; font-weight: 700; }
+        .summary-card .card-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
+        .card-danger .card-value { color: #e74c3c; }
+        .card-warning .card-value { color: #f39c12; }
+        .card-info .card-value { color: #3498db; }
+        .card-success .card-value { color: #27ae60; }
+        .section { background: white; border-radius: 10px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 13px; font-weight: 500; }
+        .badge-danger { background: #ffeaea; color: #e74c3c; }
+        .badge-warning { background: #fff4e6; color: #f39c12; }
+        .badge-ok { background: #e8f8f0; color: #27ae60; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { background: #f8f9fb; padding: 10px 12px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #eee; white-space: nowrap; }
+        td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
+        .num { text-align: right; font-variant-numeric: tabular-nums; }
+        .row-critical { background: #fff5f5; }
+        .row-warning { background: #fffdf5; }
+        .empty-row { text-align: center; color: #bbb; padding: 20px; }
+        .wh-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+        .wh-tag { background: #f0f4f8; padding: 4px 10px; border-radius: 6px; font-size: 12px; color: #555; }
+        .footer { text-align: center; color: #aaa; font-size: 12px; padding: 20px 0; }
+        .stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 12px; }
+        .stat-item { font-size: 14px; }
+        .stat-item span { color: #667eea; font-weight: 600; }
+    </style>
 </head>
 <body>
 <div class="container">
+    <div class="header">
+        <h1>万里牛ERP库存巡检报告</h1>
+        <div class="meta">报告日期：2026-07-12 | 生成时间：2026-07-12 00:30:50</div>
+    </div>
 
-<!-- ====== 头部 ====== -->
-<div class="header">
-<h1>万里牛ERP库存巡检</h1>
-<div class="meta">数据来源：万里牛ERP | 生成时间：2026-07-11 15:14:41<br>库存产品总数：95 | 有库存产品：84</div>
-</div>
+    <div class="summary-grid">
+        <div class="summary-card card-danger">
+            <div class="card-title">库存预警<span class="badge badge-danger">11项</span></div>
+            <div class="card-value">11</div>
+            <div class="card-sub">可用库存不足或缺货</div>
+        </div>
+        <div class="summary-card card-warning">
+            <div class="card-title">保质期预警<span class="badge badge-ok">0项</span></div>
+            <div class="card-value">0</div>
+            <div class="card-sub">已过期0 / 即将过期0</div>
+        </div>
+        <div class="summary-card card-warning">
+            <div class="card-title">原辅料预警<span class="badge badge-warning">7项</span></div>
+            <div class="card-value">7</div>
+            <div class="card-sub">原辅料库存偏低</div>
+        </div>
+        <div class="summary-card card-info">
+            <div class="card-title">库存总览</div>
+            <div class="card-value">95</div>
+            <div class="card-sub">SKU总数</div>
+        </div>
+    </div>
 
-<!-- ====== 统计卡片 ====== -->
-<div class="stats">
-<div class="stat-card warning">
-<div class="num">2</div>
-<div class="label">库存预警</div>
-</div>
-<div class="stat-card danger">
-<div class="num">5</div>
-<div class="label">保质期预警批次</div>
-</div>
-<div class="stat-card warning">
-<div class="num">0/2</div>
-<div class="label">原辅料预警 紧急/关注</div>
-</div>
-</div>
+    <div class="section">
+        <div class="section-title">库存概况</div>
+        <div class="stat-row">
+            <div class="stat-item">SKU总数: <span>95</span></div>
+            <div class="stat-item">库存总量: <span>912509</span></div>
+            <div class="stat-item">锁定库存: <span>367</span></div>
+            <div class="stat-item">可用库存: <span>912142</span></div>
+        </div>
+        <div class="wh-tags"><span class='wh-tag'>002 - 快递耗材仓</span><span class='wh-tag'>003 - 003</span><span class='wh-tag'>004 - 004</span><span class='wh-tag'>005 - 005</span><span class='wh-tag'>006 - 006</span><span class='wh-tag'>007 - 007</span><span class='wh-tag'>008 - 008</span><span class='wh-tag'>010 - 010</span><span class='wh-tag'>013 - 013</span><span class='wh-tag'>014 - 014</span></div>
+    </div>
 
-<!-- ====== 库存预警 ====== -->
-<div class="section">
-<div class="section-header">库存预警 <span class="badge badge-red">2</span></div>
-<div class="data-table">
-<table>
-<colgroup>
-<col class="col-level"><col><col class="col-stock-sales"><col class="col-stock-avail"><col class="col-val3"><col style="width:3%">
-</colgroup>
-<thead>
-<tr>
-<th class="text-center">预警等级</th>
-<th>商品名称</th>
-<th class="text-right nowrap">日均销量</th>
-<th class="text-right">可用库存</th>
-<th class="text-right">可售天数</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
+    <div class="section">
+        <div class="section-title">库存预警<span class="badge badge-danger">11项</span></div>
+        <p style="color:#888;font-size:13px;margin-bottom:12px;">可用库存（库存量 - 锁定量 - 次品量）≤ 0 的商品</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>商品编码</th><th>商品名称</th><th>分类</th>
+                    <th>库存量</th><th>锁定量</th><th>次品量</th><th>可用库存</th><th>预警类型</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr class="row-critical">
+                <td>ef21031</td>
+                <td>ef21031</td>
+                <td>未分类</td>
+                <td class="num">-1070</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">-1070</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef21005</td>
+                <td>标贴-深海鱼-200ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">-908</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">-908</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10315</td>
+                <td>包装袋-川式腊肠250g（五香）</td>
+                <td>包材外盒</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10194</td>
+                <td> 壹粒酱跳跳野菌酱90g</td>
+                <td>壹粒酱</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>AD-002</td>
+                <td>报纸-2019</td>
+                <td>停用</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10403</td>
+                <td>标贴-木榨芝麻油-210ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10308</td>
+                <td>黑松露/kg</td>
+                <td>生产原料</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10393</td>
+                <td>标贴-酿功夫-玫瑰米醋-700ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10394</td>
+                <td>标贴-酿功夫-玫瑰米醋-100ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10273</td>
+                <td>铝箔袋-小小酱油16ml</td>
+                <td>包材外盒</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10314</td>
+                <td>川式腊肠（五香）250g</td>
+                <td>官酱食集</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>缺货</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name" title="珍珠棉-大瓶">珍珠棉-大瓶</td>
-<td class="text-right nowrap">70.6</td>
-<td class="text-right nowrap num-bold">1,275</td>
-<td class="text-right nowrap text-warning">18天</td>
-<td></td>
-</tr>
+    <div class="section">
+        <div class="section-title">保质期预警<span class="badge badge-ok">0项</span></div>
+        <p style="color:#888;font-size:13px;margin-bottom:12px;">批次已过期或将在30天内过期的商品（仅含有库存批次）</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>商品编码</th><th>商品名称</th><th>批次号</th>
+                    <th>批次库存</th><th>过期日期</th><th>预警级别</th>
+                </tr>
+            </thead>
+            <tbody><tr><td colspan="6" class="empty-row">暂无保质期预警</td></tr>
+            </tbody>
+        </table>
+    </div>
 
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name" title="珍珠棉-小瓶">珍珠棉-小瓶</td>
-<td class="text-right nowrap">58.9</td>
-<td class="text-right nowrap num-bold">1,647</td>
-<td class="text-right nowrap text-warning">27天</td>
-<td></td>
-</tr>
+    <div class="section">
+        <div class="section-title">原辅料预警<span class="badge badge-warning">7项</span></div>
+        <p style="color:#888;font-size:13px;margin-bottom:12px;">原辅料（生产原料/包材/标贴/纸箱等）库存偏低的商品</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>商品编码</th><th>商品名称</th><th>分类</th>
+                    <th>库存量</th><th>可用库存</th><th>采购量</th><th>预警类型</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr class="row-critical">
+                <td>ef21005</td>
+                <td>标贴-深海鱼-200ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">-908</td>
+                <td class="num">-908</td>
+                <td class="num">5000</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10315</td>
+                <td>包装袋-川式腊肠250g（五香）</td>
+                <td>包材外盒</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10403</td>
+                <td>标贴-木榨芝麻油-210ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">1000</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10308</td>
+                <td>黑松露/kg</td>
+                <td>生产原料</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10393</td>
+                <td>标贴-酿功夫-玫瑰米醋-700ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">1000</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10394</td>
+                <td>标贴-酿功夫-玫瑰米醋-100ml</td>
+                <td>标贴吊牌</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">1000</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            <tr class="row-critical">
+                <td>ef10273</td>
+                <td>铝箔袋-小小酱油16ml</td>
+                <td>包材外盒</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td class="num">10000</td>
+                <td>原辅料库存不足</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-</tbody></table></div>
-</div>
-
-<!-- ====== 保质期预警 ====== -->
-<div class="section">
-<div class="section-header">保质期预警 <span class="badge badge-orange">5个批次</span></div>
-<div class="data-table">
-<table>
-<colgroup>
-<col class="col-level"><col><col class="col-shelf-batch"><col class="col-shelf-stock"><col class="col-shelf-days"><col style="width:3%">
-</colgroup>
-<thead>
-<tr>
-<th class="text-center">预警等级</th>
-<th>商品名称</th>
-<th class="text-right">商品批次</th>
-<th class="text-right">批次库存</th>
-<th class="text-right">剩余天数</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name-wrap" title="小黑猪脊膘油300g">小黑猪脊膘油300g</td>
-<td class="nowrap">20260321</td>
-<td class="text-right nowrap num-bold">158</td>
-<td class="text-right nowrap text-warning">67天 (37%)</td>
-<td></td>
-</tr>
-
-<tr>
-<td class="text-center"><span class="level level-urgent">紧急</span></td>
-<td class="col-name-wrap" title="S-原浆特酿-200ml">S-原浆特酿-200ml</td>
-<td class="nowrap">20241118</td>
-<td class="text-right nowrap num-bold">359</td>
-<td class="text-right nowrap text-danger">129天 (17%)</td>
-<td></td>
-</tr>
-
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name-wrap" title="川香红油-210ml">川香红油-210ml</td>
-<td class="nowrap">20260109</td>
-<td class="text-right nowrap num-bold">626</td>
-<td class="text-right nowrap text-warning">181天 (49%)</td>
-<td></td>
-</tr>
-
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name-wrap" title="酿功夫-黑松露原汁酱油-700ml">酿功夫-黑松露原汁酱油-700ml</td>
-<td class="nowrap">20250410</td>
-<td class="text-right nowrap num-bold">227</td>
-<td class="text-right nowrap text-warning">262天 (36%)</td>
-<td></td>
-</tr>
-
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name-wrap" title="S-原浆特酿（新条码462）-200ml">S-原浆特酿（新条码462）-200ml</td>
-<td class="nowrap">20250429</td>
-<td class="text-right nowrap num-bold">239</td>
-<td class="text-right nowrap text-warning">291天 (39%)</td>
-<td></td>
-</tr>
-
-</tbody></table></div>
-</div>
-
-<!-- ====== 原辅料预警 ====== -->
-<div class="section">
-<div class="section-header">原辅料预警 <span class="badge badge-red">2</span></div>
-<div class="data-table">
-<table>
-<colgroup>
-<col class="col-level"><col><col class="col-raw-category"><col class="col-raw-limit"><col class="col-raw-avail"><col style="width:3%">
-</colgroup>
-<thead>
-<tr>
-<th class="text-center">预警等级</th>
-<th>物料名称</th>
-<th class="text-right">分类</th>
-<th class="text-right">预警限</th>
-<th class="text-right">库存数量</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name" title="吊牌-通用2024">吊牌-通用2024</td>
-<td class="text-right nowrap">标签吊牌</td>
-<td class="text-right nowrap">10,000</td>
-<td class="text-right nowrap text-warning num-bold">12,614</td>
-<td></td>
-</tr>
-
-<tr>
-<td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name" title="热缩套-酱油-全包黑色-500ml">热缩套-酱油-全包黑色-500ml</td>
-<td class="text-right nowrap">包装外盒</td>
-<td class="text-right nowrap">10,000</td>
-<td class="text-right nowrap text-warning num-bold">16,158</td>
-<td></td>
-</tr>
-
-</tbody></table></div>
-</div>
-
-<!-- ====== 规则说明 ====== -->
-<div style="margin: 0 10px 16px; font-size: 9px; color: #666; line-height: 1.7;">
-<div style="padding: 8px 0;">
-<b>库存预警规则</b><br>
-筛选：可用库存 &lt; 日均销量×30（即可售天数 &lt; 30天）｜日均销量 = 近30天销量÷30<br>
-<b style="color:#e74c3c">紧急</b> = 可售天数 ≤ 15天，<b style="color:#d4ac0d"> 关注</b> = 可售天数 ≤ 30天
-</div>
-<div style="padding: 8px 0;">
-<b>保质期预警规则</b><br>
-筛选：剩余保质期 &lt; 总保质期的50%（即保质期已过半）｜仅列出有批次详情且批次库存&gt;0的产品<br>
-<b style="color:#e74c3c">紧急</b> = 剩余天数 &lt; 总保质期的1/3 或 &lt; 60天，其余为<b style="color:#d4ac0d">关注</b>
-</div>
-<div style="padding: 8px 0;">
-<b>原辅料预警规则</b><br>
-数据来源：虚拟仓（原料辅料）WHXN｜预警下限 = 商品档案「采购批量」(purchase_num)<br>
-<b style="color:#e74c3c">紧急</b> = 库存 ≤ 预警下限，<b style="color:#d4ac0d">关注</b> = 预警下限 &lt; 库存 ≤ 预警下限×2｜仅统计 WHXN 仓库中库存 &gt; 0 且有采购批量的物料
-</div>
-</div>
-
+    <div class="footer">
+        本报告由万里牛ERP库存巡检系统自动生成 | 2026-07-12 00:30:50
+    </div>
 </div>
 </body>
 </html>
