@@ -49,21 +49,26 @@ tr:hover td { background: #fafbfc; }
 
 /* 统一列宽：全部基于百分比，保证跨模块左右对齐 */
 .col-level { width: 13%; }
-.col-val1  { width: 16%; }
-.col-val2  { width: 14%; }
+.col-val1  { width: 14%; }
+.col-val2  { width: 16%; }
 .col-val3  { width: 14%; }
 .col-name  { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* 保质期预警表专用列宽：商品批次和批次库存位置对调，剩余天数22% */
-.col-shelf-batch { width: 20%; }
+/* 库存预警表专用列宽：日均销量16%，可用库存14% */
+.col-stock-sales { width: 16%; }
+.col-stock-avail { width: 14%; }
+
+/* 保质期预警表专用列宽：商品批次16%右对齐，剩余天数20% */
+.col-shelf-batch { width: 16%; text-align: right; }
 .col-shelf-stock { width: 14%; }
-.col-shelf-days { width: 22%; }
+.col-shelf-days { width: 20%; }
 /* 保质期预警的名称列允许换行，完整显示 */
 .col-name-wrap { word-break: break-all; line-height: 1.5; padding-left: 0; }
 
-/* 原辅料预警表专用列宽 */
-.col-raw-category { width: 16%; }
+/* 原辅料预警表专用列宽：分类、预警限、库存数量都14% */
+.col-raw-category { width: 14%; }
 .col-raw-limit { width: 14%; }
+.col-raw-avail { width: 14%; }
 
 /* 库存数值加粗 */
 .num-bold { font-weight: 700; }
@@ -75,7 +80,7 @@ tr:hover td { background: #fafbfc; }
 <!-- ====== 头部 ====== -->
 <div class="header">
 <h1>库存巡检</h1>
-<div class="meta">数据来源：万里牛ERP | 生成时间：2026-07-11 14:54:14<br>库存产品总数：95 | 有库存产品：84</div>
+<div class="meta">数据来源：万里牛ERP | 生成时间：2026-07-11 15:03:44<br>库存产品总数：95 | 有库存产品：84</div>
 </div>
 
 <!-- ====== 统计卡片 ====== -->
@@ -100,14 +105,14 @@ tr:hover td { background: #fafbfc; }
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col><col class="col-val1"><col class="col-val2"><col class="col-val3"><col style="width:3%">
+<col class="col-level"><col><col class="col-stock-sales"><col class="col-stock-avail"><col class="col-val3"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
 <th class="text-center">预警等级</th>
 <th>商品名称</th>
-<th class="text-right">可用库存</th>
 <th class="text-right nowrap">日均销量</th>
+<th class="text-right">可用库存</th>
 <th class="text-right">可售天数</th>
 <th></th>
 </tr>
@@ -116,18 +121,18 @@ tr:hover td { background: #fafbfc; }
 
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name" title="EP500">EP500</td>
-<td class="text-right nowrap num-bold">1,275</td>
+<td class="col-name" title="珍珠棉-大瓶">珍珠棉-大瓶</td>
 <td class="text-right nowrap">70.6</td>
+<td class="text-right nowrap num-bold">1,275</td>
 <td class="text-right nowrap text-warning">18天</td>
 <td></td>
 </tr>
 
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name" title="EP200">EP200</td>
-<td class="text-right nowrap num-bold">1,647</td>
+<td class="col-name" title="珍珠棉-小瓶">珍珠棉-小瓶</td>
 <td class="text-right nowrap">58.9</td>
+<td class="text-right nowrap num-bold">1,647</td>
 <td class="text-right nowrap text-warning">27天</td>
 <td></td>
 </tr>
@@ -147,7 +152,7 @@ tr:hover td { background: #fafbfc; }
 <tr>
 <th class="text-center">预警等级</th>
 <th>商品名称</th>
-<th>商品批次</th>
+<th class="text-right">商品批次</th>
 <th class="text-right">批次库存</th>
 <th class="text-right">剩余天数</th>
 <th></th>
@@ -193,7 +198,7 @@ tr:hover td { background: #fafbfc; }
 
 <tr>
 <td class="text-center"><span class="level level-attention">关注</span></td>
-<td class="col-name-wrap" title="ef10305">ef10305</td>
+<td class="col-name-wrap" title="S-原浆特酿（新条码462）-200ml">S-原浆特酿（新条码462）-200ml</td>
 <td class="nowrap">20250429</td>
 <td class="text-right nowrap num-bold">239</td>
 <td class="text-right nowrap text-warning">291天 (39%)</td>
@@ -209,7 +214,7 @@ tr:hover td { background: #fafbfc; }
 <div class="data-table">
 <table>
 <colgroup>
-<col class="col-level"><col><col class="col-raw-category"><col class="col-raw-limit"><col class="col-val1"><col style="width:3%">
+<col class="col-level"><col><col class="col-raw-category"><col class="col-raw-limit"><col class="col-raw-avail"><col style="width:3%">
 </colgroup>
 <thead>
 <tr>
