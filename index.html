@@ -63,7 +63,7 @@
       <h1>📦 库存巡检</h1>
       <div class="header-meta">
         <span>📊 数据来源：万里牛ERP</span>
-        <span>🕐 生成时间：14:21:10</span>
+        <span>🕐 生成时间：14:24:42</span>
         <span>📦 库存产品：95 个</span>
         <span>✅ 有库存产品：84 个</span>
       </div>
@@ -72,8 +72,8 @@
     <div class="stats-grid">
       <div class="stat-card danger">
         <div class="stat-title">库存预警</div>
-        <div class="stat-value">3</div>
-        <div class="stat-detail">紧急 0 个 · 关注 3 个</div>
+        <div class="stat-value">1</div>
+        <div class="stat-detail">紧急 0 个 · 关注 1 个</div>
       </div>
       <div class="stat-card danger">
         <div class="stat-title">保质期预警批次</div>
@@ -89,7 +89,7 @@
 
     <div class="section">
       <div class="section-header">
-        <h2>⚠️ 库存预警 <span class="badge">3</span></h2>
+        <h2>⚠️ 库存预警 <span class="badge">1</span></h2>
       </div>
       <table>
         <thead>
@@ -99,35 +99,12 @@
           <tr>
             <td><span class="level-badge warning">🟡 关注</span></td>
             <td>
-              <div class="product-name">S-冰油-200ml</div>
-              <div class="product-code">ef10122</div>
+              <div class="product-name">珍珠棉-大瓶</div>
+              <div class="product-code">EP500</div>
             </td>
-            <td>1360</td>
-            <td>1000</td>
-            <td>6.8</td>
-            <td>199.0 天</td>
-          </tr>
-          <tr>
-            <td><span class="level-badge warning">🟡 关注</span></td>
-            <td>
-              <div class="product-name">珍珠棉-食用油500ml</div>
-              <div class="product-code">EP5002</div>
-            </td>
-            <td>684</td>
-            <td>500</td>
-            <td>0.2</td>
-            <td>2931.4 天</td>
-          </tr>
-          <tr>
-            <td><span class="level-badge warning">🟡 关注</span></td>
-            <td>
-              <div class="product-name">纸箱-酱油礼盒</div>
-              <div class="product-code">BX-G01</div>
-            </td>
-            <td>884</td>
-            <td>500</td>
-            <td>0.4</td>
-            <td>2210.0 天</td>
+            <td>1275</td>
+            <td>56.2</td>
+            <td>22.7 天</td>
           </tr>
         </tbody>
       </table>
@@ -239,10 +216,10 @@
         <div class="rule-item">
           <h4>库存预警规则</h4>
           <p>
-            <span class="tag">紧急</span> 可用库存 ≤ 采购批量<br>
-            <span class="tag warning">关注</span> 可用库存 ≤ 采购批量 × 2<br>
-            阈值来源：商品属性"采购批量"字段<br>
-            无采购批量的商品不纳入预警
+            <span class="tag">紧急</span> 可售天数 ≤ 15天<br>
+            <span class="tag warning">关注</span> 可售天数 ≤ 30天<br>
+            可售天数 = 可用库存 / 日均销量<br>
+            仅统计日均销量 > 0 的商品
           </p>
         </div>
         <div class="rule-item">
@@ -256,9 +233,10 @@
         <div class="rule-item">
           <h4>原辅料预警规则</h4>
           <p>
-            <span class="tag">紧急</span> 库存数量 ≤ 1,000<br>
-            <span class="tag warning">关注</span> 库存数量 ≤ 5,000<br>
-            统计范围：原辅料仓库(WHXN)
+            <span class="tag">紧急</span> 库存数量 ≤ 采购批量<br>
+            <span class="tag warning">关注</span> 库存数量 ≤ 采购批量 × 2<br>
+            阈值来源：商品属性"采购批量"字段<br>
+            无采购批量的物料不纳入预警
           </p>
         </div>
       </div>
