@@ -64,16 +64,16 @@ body {
 .chart-total { font-size: 11px; color: #3b82f6; font-weight: 600; }
 .inbound-badge { font-size: 11px; color: #999; background: #f5f5f5; padding: 2px 6px; border-radius: 4px; }
 .chart-bars { margin-top: 8px; }
-.bar-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-.bar-city { width: 76px; font-size: 12px; color: #555; flex-shrink: 0; white-space: nowrap; display: flex; align-items: center; gap: 3px; }
+.bar-row { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+.bar-city { min-width: 50px; font-size: 12px; color: #555; flex-shrink: 0; white-space: nowrap; display: flex; align-items: center; gap: 3px; }
 .bar-city.critical { color: #e53e3e; font-weight: 700; }
-.bar-track { flex: 1; height: 14px; background: #f0f0f5; border-radius: 3px; overflow: hidden; display: flex; flex-direction: row; gap: 0; }
+.bar-track { flex: 1; height: 16px; background: #f0f0f5; border-radius: 4px; overflow: hidden; display: flex; flex-direction: row; gap: 0; }
 .bar-fill { height: 100%; border-radius: 0; transition: width 0.3s; }
-.bar-track .bar-fill:first-child { border-radius: 3px 0 0 3px; }
-.bar-track .bar-fill:last-child { border-radius: 0 3px 3px 0; }
-.bar-track .bar-fill:only-child { border-radius: 3px; }
+.bar-track .bar-fill:first-child { border-radius: 4px 0 0 4px; }
+.bar-track .bar-fill:last-child { border-radius: 0 4px 4px 0; }
+.bar-track .bar-fill:only-child { border-radius: 4px; }
 .bar-inbound { background: #cccccc; }
-.bar-vals { width: 60px; text-align: right; font-size: 11px; flex-shrink: 0; }
+.bar-vals { min-width: 52px; text-align: right; font-size: 11px; flex-shrink: 0; }
 .bar-sep { color: #ddd; margin: 0 3px; }
 .bar-warn { font-size: 9px; padding: 1px 3px; border-radius: 3px; white-space: nowrap; font-weight: 700; }
 .bar-warn.danger { background: #fef0f0; color: #e53e3e; }
@@ -107,13 +107,13 @@ body {
     </div>
     <div class="header-info">
       <div class="header-title">京东经营日报</div>
-      <div class="header-date">报告日期 2026-07-13 | 生成 2026-07-14 13:21</div>
+      <div class="header-date">报告日期 2026-07-13 | 生成 2026-07-14 17:23</div>
     </div>
   </div>
   <div class="summary-hidden">
     <p><strong>经营摘要：</strong>📊 成交金额 ¥6,693.86，商品访客数 271，成交单量 66
 👥 成交商品件数 102，客单价 ¥104.59，成交转化率 23.62%
-⚠️ 预警：无货商品: 1个SKU；滞销商品: 13个SKU；不动销商品: 12个SKU；低库存商品: 13个SKU</p>
+⚠️ 预警：无货商品1个（占比5.88%）— 冰油16ml；滞销商品13个（占比76.47%）— 多数SKU周转缓慢；不动销商品12个（占比70.59%）— 需关注动销策略；低库存商品13个（占比76.47%）— 多数SKU库存偏低，建议补货</p>
   </div>
   <div class="section" id="section-metrics">
     <div class="section-title"><span class="icon"></span>核心经营指标</div>
@@ -122,7 +122,7 @@ body {
         <div class="label">成交金额</div>
         <div class="value">¥6,693.86</div>
         <div class="change down">-11.18%</div>
-        <div class="compare"><span class='compare-label'>对比 </span><span class='compare-val'>¥7,536.85</span></div>
+        <div class="compare"><span class='compare-label'>对比 </span><span class='compare-val'>¥7,535.96</span></div>
       </div>
       <div class="metric-card">
         <div class="label">商品访客数</div>
@@ -146,13 +146,13 @@ body {
         <div class="label">客单价</div>
         <div class="value">¥104.59</div>
         <div class="change down">-4.25%</div>
-        <div class="compare"><span class='compare-label'>对比 </span><span class='compare-val'>¥109.23</span></div>
+        <div class="compare"><span class='compare-label'>对比 </span><span class='compare-val'>¥109.24</span></div>
       </div>
       <div class="metric-card">
         <div class="label">成交转化率</div>
         <div class="value">23.62%</div>
         <div class="change up">+16.03%</div>
-        <div class="compare"><span class='compare-label'>对比 </span><span class='compare-val'>20.35%</span></div>
+        <div class="compare"><span class='compare-label'>对比 </span><span class='compare-val'>20.36%</span></div>
       </div>
     </div>
   </div>
@@ -161,16 +161,15 @@ body {
     <div class="section-title"><span class="icon"></span>风险预警与建议</div>
     <div class="alert-box danger">
       <div class="alert-title">紧急关注</div>
-      <div class="alert-item">无货商品: 1个SKU</div>
-<div class="alert-item">滞销商品: 13个SKU</div>
-<div class="alert-item">不动销商品: 12个SKU</div>
-<div class="alert-item">低库存商品: 13个SKU</div>
+      <div class="alert-item">无货商品1个（占比5.88%）— 冰油16ml</div>
+<div class="alert-item">滞销商品13个（占比76.47%）— 多数SKU周转缓慢</div>
+<div class="alert-item">不动销商品12个（占比70.59%）— 需关注动销策略</div>
+<div class="alert-item">低库存商品13个（占比76.47%）— 多数SKU库存偏低，建议补货</div>
     </div>
-        <div class="suggestion-item">成交金额环比下降11.18%，建议检查流量与转化链路</div>
-    <div class="suggestion-item">商品访客数环比下降20.06%，建议加大推广投入引流</div>
-    <div class="suggestion-item">成交转化率环比上升16.03%，转化表现提升，建议持续优化商品详情页</div>
-    <div class="suggestion-item">1个SKU无货需紧急补货，13个SKU低库存建议追加采购</div>
-    <div class="suggestion-item">12个SKU不动销，建议启动促销活动清理库存</div>
+        <div class="suggestion-item">冰油16ml已无货，建议立即安排补货</div>
+    <div class="suggestion-item">原浆特酿16ml和XO大师酱90g库存为0，需确认是否继续备货</div>
+    <div class="suggestion-item">高油酸葵花籽油库存充足（416件），可适当减少补货频率</div>
+    <div class="suggestion-item">多数SKU滞销/不动销，建议评估促销或清仓方案</div>
   </div>
   <hr class="divider">
   <div class="section" id="section-inventory">
@@ -182,7 +181,7 @@ body {
     </div>
         <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">原浆特酿 500ml</span>
+        <span class="chart-product-name">原浆特酿500ml</span>
         <span class="chart-total">库存: 529</span>
         <span class="inbound-badge">未到货: 120</span>
       </div>
@@ -281,7 +280,7 @@ body {
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">木榨米醋 200ml</span>
+        <span class="chart-product-name">木榨米醋200ml</span>
         <span class="chart-total">库存: 386</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -289,7 +288,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:58.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -299,7 +298,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:78.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:45.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -309,7 +308,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:78.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:45.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -319,7 +318,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:32.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:18.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -329,7 +328,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:23.9%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:14.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -339,7 +338,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:18.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:10.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -349,7 +348,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:15.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:9.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -359,18 +358,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:8.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">9</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">冰油 500ml</span>
+        <span class="chart-product-name">冰油500ml</span>
         <span class="chart-total">库存: 367</span>
         <span class="inbound-badge">未到货: 36</span>
       </div>
@@ -378,7 +387,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:34.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -388,7 +397,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:89.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:30.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -398,7 +407,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:67.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:23.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -408,7 +417,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:67.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:23.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -418,7 +427,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:59.4%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:20.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -428,7 +437,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:54.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:18.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -438,7 +447,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:50.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:17.3%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -448,7 +457,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:43.8%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:15.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -458,8 +467,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海FDC<span class="bar-warn danger">低库存</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:42.2%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:56.2%;"></div>
+              <div class="bar-fill" style="width:14.6%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:19.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">27</span><span class="bar-sep">/</span><span style="color:#999;">36</span>
@@ -469,7 +478,7 @@ body {
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">轻盐特酿 500ml</span>
+        <span class="chart-product-name">轻盐特酿500ml</span>
         <span class="chart-total">库存: 251</span>
         <span class="inbound-badge">未到货: 61</span>
       </div>
@@ -477,7 +486,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:38.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -487,7 +496,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:75.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:29.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -497,7 +506,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:56.9%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:22.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -507,7 +516,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:56.9%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:22.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -517,7 +526,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:22.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:8.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -527,7 +536,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:20.8%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:8.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -537,8 +546,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:15.3%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:1.4%;"></div>
+              <div class="bar-fill" style="width:5.9%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">11</span><span class="bar-sep">/</span><span style="color:#999;">1</span>
@@ -547,18 +556,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京<span class="bar-warn danger">低库存</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:1.4%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:83.3%;"></div>
+              <div class="bar-fill" style="width:0.5%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:32.4%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">1</span><span class="bar-sep">/</span><span style="color:#999;">60</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
             </div>
           </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">原浆特酿 200ml</span>
+        <span class="chart-product-name">原浆特酿200ml</span>
         <span class="chart-total">库存: 233</span>
         <span class="inbound-badge">未到货: 12</span>
       </div>
@@ -566,7 +585,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:37.3%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -576,7 +595,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:52.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:19.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -586,7 +605,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:49.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:18.4%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -596,7 +615,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:39.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:14.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -606,7 +625,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:29.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:10.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -616,8 +635,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:24.6%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:17.4%;"></div>
+              <div class="bar-fill" style="width:9.2%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:6.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">17</span><span class="bar-sep">/</span><span style="color:#999;">12</span>
@@ -626,7 +645,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:24.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:9.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -636,18 +655,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:18.8%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">13</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">冰油 200ml</span>
+        <span class="chart-product-name">冰油200ml</span>
         <span class="chart-total">库存: 175</span>
         <span class="inbound-badge">未到货: 12</span>
       </div>
@@ -655,7 +684,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:24.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -665,7 +694,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海FDC</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:56.5%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:14.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -675,7 +704,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:52.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:13.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -685,7 +714,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:43.5%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:10.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -695,8 +724,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:37.0%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:26.1%;"></div>
+              <div class="bar-fill" style="width:9.2%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:6.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">17</span><span class="bar-sep">/</span><span style="color:#999;">12</span>
@@ -705,7 +734,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:28.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -715,7 +744,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:26.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:6.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -725,7 +754,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:19.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -735,7 +764,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:17.4%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.3%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -746,7 +775,7 @@ body {
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">松茸菌菇酱油 200ml</span>
+        <span class="chart-product-name">松茸菌菇酱油200ml</span>
         <span class="chart-total">库存: 138</span>
         <span class="inbound-badge">未到货: 12</span>
       </div>
@@ -754,7 +783,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:22.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -764,7 +793,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:92.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:20.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -774,7 +803,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:56.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:12.4%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -784,7 +813,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:31.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -794,7 +823,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:31.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -804,7 +833,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:14.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -814,8 +843,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳<span class="bar-warn danger">低库存</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:7.3%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:29.3%;"></div>
+              <div class="bar-fill" style="width:1.6%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:6.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">3</span><span class="bar-sep">/</span><span style="color:#999;">12</span>
@@ -824,18 +853,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都<span class="bar-warn danger">低库存</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:2.4%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:0.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">1</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">川香红油 210ml</span>
+        <span class="chart-product-name">川香红油210ml</span>
         <span class="chart-total">库存: 95</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -843,7 +882,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:9.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -853,7 +892,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:82.4%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -863,7 +902,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳<span class="bar-warn warning">滞销</span><span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:82.4%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -873,7 +912,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:70.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:6.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -883,7 +922,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:70.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:6.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -893,7 +932,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都<span class="bar-warn warning">滞销</span><span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:64.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:5.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -903,7 +942,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:47.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.3%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -913,18 +952,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:41.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">7</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">藤椒油 210ml</span>
+        <span class="chart-product-name">藤椒油210ml</span>
         <span class="chart-total">库存: 90</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -932,7 +981,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:10.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -942,7 +991,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:90.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:9.7%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -952,7 +1001,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:60.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:6.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -962,7 +1011,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:50.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:5.4%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -972,7 +1021,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:45.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -982,7 +1031,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳<span class="bar-warn warning">滞销</span><span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:45.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -992,7 +1041,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:30.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1002,18 +1051,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:30.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">6</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">小黑猪脊膘油 300g</span>
+        <span class="chart-product-name">小黑猪脊膘油300g</span>
         <span class="chart-total">库存: 71</span>
         <span class="inbound-badge">未到货: 41</span>
       </div>
@@ -1021,8 +1080,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:58.5%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:41.5%;"></div>
+              <div class="bar-fill" style="width:13.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:9.2%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">24</span><span class="bar-sep">/</span><span style="color:#999;">17</span>
@@ -1031,7 +1090,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:56.1%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:12.4%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1041,8 +1100,8 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:24.4%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:29.3%;"></div>
+              <div class="bar-fill" style="width:5.4%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:6.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">10</span><span class="bar-sep">/</span><span style="color:#999;">12</span>
@@ -1051,7 +1110,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:14.6%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1061,7 +1120,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:12.2%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:2.7%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1071,7 +1130,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:7.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1079,20 +1138,40 @@ body {
             </div>
           </div>
           <div class="bar-row">
+            <div class="bar-city">德州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
               <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
-              <div class="bar-fill bar-inbound" style="width:29.3%;"></div>
+              <div class="bar-fill bar-inbound" style="width:6.5%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">0</span><span class="bar-sep">/</span><span style="color:#999;">12</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
             </div>
           </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">花椒油 210ml</span>
+        <span class="chart-product-name">花椒油210ml</span>
         <span class="chart-total">库存: 64</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -1100,7 +1179,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:8.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1110,7 +1189,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:93.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:7.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1120,7 +1199,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:66.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:5.4%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1130,7 +1209,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海<span class="bar-warn warning">滞销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:53.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.3%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1140,7 +1219,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:40.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1150,7 +1229,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:33.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:2.7%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1160,7 +1239,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">沈阳</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:26.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:2.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1170,18 +1249,28 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:13.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">2</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">高油酸葵花籽油 250ml</span>
+        <span class="chart-product-name">高油酸葵花籽油500ml</span>
         <span class="chart-total">库存: 43</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -1189,7 +1278,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:6.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1199,7 +1288,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:58.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1209,7 +1298,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州<span class="bar-warn warning">滞销</span><span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:58.3%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.8%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1219,7 +1308,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:50.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1229,7 +1318,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:50.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:3.2%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1239,7 +1328,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安<span class="bar-warn warning">滞销</span><span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:25.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1249,7 +1338,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:16.7%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1258,6 +1347,16 @@ body {
           </div>
           <div class="bar-row">
             <div class="bar-city">沈阳</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
             <div class="bar-track">
               <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
@@ -1278,7 +1377,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">北京</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:5.4%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1288,7 +1387,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">上海</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:90.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:4.9%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1298,7 +1397,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">广州</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:50.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:2.7%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1308,7 +1407,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:30.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1318,7 +1417,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">成都</div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:30.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.6%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1328,18 +1427,48 @@ body {
           <div class="bar-row">
             <div class="bar-city">德州<span class="bar-warn danger">低库存</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:20.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">2</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">西安</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">沈阳</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">冰油 16ml</span>
+        <span class="chart-product-name">冰油16ml</span>
         <span class="chart-total">库存: 2</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -1347,7 +1476,7 @@ body {
           <div class="bar-row">
             <div class="bar-city">西安<span class="bar-warn warning">滞销</span><span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:1.1%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
@@ -1424,11 +1553,21 @@ body {
               <span style="color:#3b82f6;">0</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">原浆特酿 200ml</span>
+        <span class="chart-product-name">原浆特酿200ml(原大豆)</span>
         <span class="chart-total">库存: 1</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
@@ -1436,34 +1575,283 @@ body {
           <div class="bar-row">
             <div class="bar-city">武汉<span class="bar-warn orange">不动销</span></div>
             <div class="bar-track">
-              <div class="bar-fill" style="width:100.0%;background:#3b82f6;"></div>
+              <div class="bar-fill" style="width:0.5%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
             </div>
             <div class="bar-vals">
               <span style="color:#3b82f6;">1</span>
             </div>
           </div>
+          <div class="bar-row">
+            <div class="bar-city">北京</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">广州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">西安</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">沈阳</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">德州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">成都</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
       </div>
     </div>
     <div class="chart-card">
       <div class="chart-card-header">
-        <span class="chart-product-name">XO大师酱</span>
-        <span class="chart-total">库存: 0</span>
-        <span class="inbound-badge">未到货: 0</span>
-      </div>
-      <div class="chart-bars">
-
-      </div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-card-header">
-        <span class="chart-product-name">原浆特酿 16ml</span>
+        <span class="chart-product-name">XO大师酱90g</span>
         <span class="chart-total">库存: 0</span>
         <span class="inbound-badge">未到货: 0</span>
       </div>
       <div class="chart-bars">
           <div class="bar-row">
+            <div class="bar-city">北京</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">广州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">武汉</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">西安</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">沈阳</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">德州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
             <div class="bar-city">成都</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <span class="chart-product-name">原浆特酿16ml</span>
+        <span class="chart-total">库存: 0</span>
+        <span class="inbound-badge">未到货: 0</span>
+      </div>
+      <div class="chart-bars">
+          <div class="bar-row">
+            <div class="bar-city">北京</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">广州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">武汉</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">西安</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">沈阳</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">德州</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">成都</div>
+            <div class="bar-track">
+              <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
+              <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
+            </div>
+            <div class="bar-vals">
+              <span style="color:#3b82f6;">0</span>
+            </div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-city">上海FDC</div>
             <div class="bar-track">
               <div class="bar-fill" style="width:0.0%;background:#3b82f6;"></div>
               <div class="bar-fill bar-inbound" style="width:0.0%;"></div>
