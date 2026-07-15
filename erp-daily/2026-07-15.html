@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ERP出库简报-0715</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6fa; color: #1e293b; }
+.header { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: #fff; padding: 20px 16px; position: relative; overflow: hidden; }
+.header::after { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; border-radius: 50%; background: rgba(99,102,241,0.15); }
+.header h1 { font-size: 18px; font-weight: 600; position: relative; z-index: 1; }
+.header .date { font-size: 12px; opacity: 0.8; margin-top: 4px; position: relative; z-index: 1; }
+.container { padding: 12px 12px; max-width: 480px; margin: 0 auto; }
+.section { margin-bottom: 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; }
+.section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.section-title { font-size: 14px; font-weight: 600; color: #1e293b; }
+.section-badge { font-size: 10px; color: #94a3b8; background: #f1f5f9; padding: 2px 8px; border-radius: 10px; }
+.section-date { font-size: 12px; color: #94a3b8; }
+.metric-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.metric-cell {
+    background: #f8fafc; border-radius: 10px; padding: 10px 8px;
+    text-align: center; border: 1px solid #f1f5f9;
+  }
+.metric-label { font-size: 10px; color: #94a3b8; margin-bottom: 5px; line-height: 1.3; }
+.metric-value { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 3px; line-height: 1.2; }
+.metric-change { font-size: 10px; font-weight: 600; }
+.metric-change.up { color: #dc2626; }
+.metric-change.down { color: #16a34a; }
+.metric-change.flat { color: #94a3b8; }
+.chart-box { width: 100%; height: 144px; border: 1px solid #f1f5f9; border-radius: 6px; background: #fafbfc; }
+.detail-row { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+.detail-row.prod-hidden { display: none; }
+.detail-row.prod-hidden.show { display: flex; }
+.detail-row.mktg-hidden { display: none; }
+.detail-row.mktg-hidden.show { display: flex; }
+.detail-row.pkg-hidden { display: none; }
+.detail-row.pkg-hidden.show { display: flex; }
+.detail-row:last-child { border-bottom: none; }
+.detail-rank { width: 20px; height: 20px; border-radius: 5px; background: #f1f5f9; color: #94a3b8; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; }
+.detail-rank.r1 { background: #fef3c7; color: #d97706; }
+.detail-rank.r2 { background: #e2e8f0; color: #64748b; }
+.detail-rank.r3 { background: #fed7aa; color: #c2410c; }
+.detail-info { flex: 1; min-width: 0; }
+.detail-name { font-size: 13px; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.detail-bar { height: 4px; background: #f1f5f9; border-radius: 2px; overflow: hidden; }
+.detail-bar-fill { height: 100%; background: #4f6ef7; border-radius: 2px; transition: width 0.6s ease; }
+.source-bar { height: 4px; background: #f1f5f9; border-radius: 2px; overflow: hidden; margin-top: 3px; }
+.source-bar-fill { height: 100%; background: linear-gradient(90deg, #ef4444, #f87171); border-radius: 2px; transition: width 0.6s ease; }
+.source-row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+.source-row:last-child { border-bottom: none; }
+.source-rank { width: 22px; height: 22px; border-radius: 6px; background: #f1f5f9; color: #94a3b8; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0; }
+.source-row:first-child .source-rank { background: #ef4444; color: #fff; }
+.source-info { flex: 1; min-width: 0; }
+.source-name { font-size: 13px; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; }
+.source-meta { font-size: 11px; color: #94a3b8; margin-bottom: 4px; }
+.source-amount { font-size: 14px; font-weight: 600; color: #1e293b; text-align: right; flex-shrink: 0; margin-left: 10px; }
+.detail-qty { font-size: 16px; font-weight: 700; color: #1e293b; flex-shrink: 0; margin-left: 10px; text-align: right; min-width: 40px; }
+.detail-unit { font-size: 11px; color: #94a3b8; font-weight: 400; margin-left: 2px; }
+.platform-tag { font-size: 9px; color: #4f6ef7; background: #eef2ff; padding: 1px 4px; border-radius: 3px; margin-right: 4px; }
+
+.toggle-btn { display: block; width: 100%; text-align: center; padding: 8px; font-size: 11px; color: #4f6ef7; background: #f8fafc; border: none; border-radius: 6px; margin-top: 6px; cursor: pointer; }
+.toggle-btn:active { opacity: 0.6; }
+.toggle-btn .arrow { display: inline-block; transition: transform 0.2s ease; margin-left: 4px; font-size: 10px; }
+.toggle-btn.expanded .arrow { transform: rotate(180deg); }
+.footer { text-align: center; padding: 16px; font-size: 10px; color: #cbd5e1; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>ERP出库简报</h1>
+  <div class="date">2026-07-15</div>
+</div>
+<div class="container">
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">实时概况（全渠道）</div>
+      <div class="section-date">2026-07-15</div>
+    </div>
+    <div class="metric-grid">
+      <div class="metric-cell">
+        <div class="metric-label">实时付款金额</div>
+        <div class="metric-value">¥3,848.88</div>
+        <div class="metric-change down">-70.7%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">实时订单数</div>
+        <div class="metric-value">41</div>
+        <div class="metric-change down">-73.2%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">未出库订单数</div>
+        <div class="metric-value">26</div>
+        <div class="metric-change down">-66.2%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">出库产品件数</div>
+        <div class="metric-value">123</div>
+        <div class="metric-change down">-30.5%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">出库营销物料</div>
+        <div class="metric-value">250</div>
+        <div class="metric-change down">-37.5%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">出库耗材件数</div>
+        <div class="metric-value">196</div>
+        <div class="metric-change down">-35.9%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">昨日数据概况（全渠道）</div>
+      <div class="section-date">2026-07-14</div>
+    </div>
+    <div class="metric-grid">
+      <div class="metric-cell">
+        <div class="metric-label">付款金额</div>
+        <div class="metric-value">¥13,156.28</div>
+        <div class="metric-change up">+4.0%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">付款笔数</div>
+        <div class="metric-value">153</div>
+        <div class="metric-change up">+6.2%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">客单价</div>
+        <div class="metric-value">¥85.99</div>
+        <div class="metric-change down">-2.2%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">出库产品件数</div>
+        <div class="metric-value">177</div>
+        <div class="metric-change down">-0.6%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">出库营销物料</div>
+        <div class="metric-value">400</div>
+        <div class="metric-change down">-2.2%</div>
+      </div>      <div class="metric-cell">
+        <div class="metric-label">出库耗材件数</div>
+        <div class="metric-value">306</div>
+        <div class="metric-change up">+5.2%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">近7天订单数趋势</div>
+    </div>
+    <div class="chart-box" id="orderChart"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">近7天出库趋势</div>
+    </div>
+    <div class="chart-box" id="stockChart"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">订单来源概况</div>
+      <div class="section-badge">昨日</div>
+    </div>
+        <div class="source-row">
+          <div class="source-rank">1</div>
+          <div class="source-info">
+            <div class="source-name">[天猫] 薛泰丰旗舰店</div>
+            <div class="source-meta">137单 / 占比 89.5%</div>
+            <div class="source-bar"><div class="source-bar-fill" style="width:100.0%"></div></div>
+          </div>
+          <div class="source-amount">¥11,672.76</div>
+        </div>
+        <div class="source-row">
+          <div class="source-rank">2</div>
+          <div class="source-info">
+            <div class="source-name">[奇门ERP] 老爸评测</div>
+            <div class="source-meta">9单 / 占比 5.9%</div>
+            <div class="source-bar"><div class="source-bar-fill" style="width:6.6%"></div></div>
+          </div>
+          <div class="source-amount">¥684.41</div>
+        </div>
+        <div class="source-row">
+          <div class="source-rank">3</div>
+          <div class="source-info">
+            <div class="source-name">[抖店] 薛泰丰官酱园</div>
+            <div class="source-meta">3单 / 占比 2.0%</div>
+            <div class="source-bar"><div class="source-bar-fill" style="width:2.2%"></div></div>
+          </div>
+          <div class="source-amount">¥493.82</div>
+        </div>
+        <div class="source-row">
+          <div class="source-rank">4</div>
+          <div class="source-info">
+            <div class="source-name">[天猫] 官酱食集旗舰店</div>
+            <div class="source-meta">3单 / 占比 2.0%</div>
+            <div class="source-bar"><div class="source-bar-fill" style="width:2.2%"></div></div>
+          </div>
+          <div class="source-amount">¥247.69</div>
+        </div>
+        <div class="source-row">
+          <div class="source-rank">5</div>
+          <div class="source-info">
+            <div class="source-name">[奇门ERP] 贡天下</div>
+            <div class="source-meta">1单 / 占比 0.7%</div>
+            <div class="source-bar"><div class="source-bar-fill" style="width:0.7%"></div></div>
+          </div>
+          <div class="source-amount">¥57.60</div>
+        </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">产品出库明细</div>
+      <div class="section-badge">TOP 10</div>
+    </div>
+        <div class="detail-row">
+          <div class="detail-rank r1">1</div>
+          <div class="detail-info">
+            <div class="detail-name">L-原浆特酿-500ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:100.0%"></div></div>
+          </div>
+          <div class="detail-qty">35<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank r2">2</div>
+          <div class="detail-info">
+            <div class="detail-name">S-松茸菌菇酱油-200ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:60.0%"></div></div>
+          </div>
+          <div class="detail-qty">21<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank r3">3</div>
+          <div class="detail-info">
+            <div class="detail-name">L-冰油-500ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:57.1%"></div></div>
+          </div>
+          <div class="detail-qty">20<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank ">4</div>
+          <div class="detail-info">
+            <div class="detail-name">L-轻盐特酿-500ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:31.4%"></div></div>
+          </div>
+          <div class="detail-qty">11<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank ">5</div>
+          <div class="detail-info">
+            <div class="detail-name">S-木榨米醋-200ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:28.6%"></div></div>
+          </div>
+          <div class="detail-qty">10<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">6</div>
+          <div class="detail-info">
+            <div class="detail-name">S-冰油-200ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:22.9%"></div></div>
+          </div>
+          <div class="detail-qty">8<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">7</div>
+          <div class="detail-info">
+            <div class="detail-name">S-原浆特酿-200ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:11.4%"></div></div>
+          </div>
+          <div class="detail-qty">4<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">8</div>
+          <div class="detail-info">
+            <div class="detail-name">花椒油-210ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:11.4%"></div></div>
+          </div>
+          <div class="detail-qty">4<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">9</div>
+          <div class="detail-info">
+            <div class="detail-name">S-小小酱油-200ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:8.6%"></div></div>
+          </div>
+          <div class="detail-qty">3<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">10</div>
+          <div class="detail-info">
+            <div class="detail-name">小黑猪脊膘油300g</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:5.7%"></div></div>
+          </div>
+          <div class="detail-qty">2<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">11</div>
+          <div class="detail-info">
+            <div class="detail-name">藤椒油-210ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:5.7%"></div></div>
+          </div>
+          <div class="detail-qty">2<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">12</div>
+          <div class="detail-info">
+            <div class="detail-name">S-深海鱼-200ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:2.9%"></div></div>
+          </div>
+          <div class="detail-qty">1<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">13</div>
+          <div class="detail-info">
+            <div class="detail-name">川香红油-210ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:2.9%"></div></div>
+          </div>
+          <div class="detail-qty">1<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row prod-hidden">
+          <div class="detail-rank ">14</div>
+          <div class="detail-info">
+            <div class="detail-name">木榨芝麻油210ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:2.9%"></div></div>
+          </div>
+          <div class="detail-qty">1<span class="detail-unit">件</span></div>
+        </div>
+    <button class="toggle-btn" onclick="toggleDetail('prod', this)">展开全部 <span class="arrow">&#9660;</span></button>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">营销物料出库明细</div>
+      <div class="section-badge">TOP 10</div>
+    </div>
+        <div class="detail-row">
+          <div class="detail-rank r1">1</div>
+          <div class="detail-info">
+            <div class="detail-name">报纸-ISSUE.01</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:100.0%"></div></div>
+          </div>
+          <div class="detail-qty">58<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank r2">2</div>
+          <div class="detail-info">
+            <div class="detail-name">木浆棉洗碗块</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:86.2%"></div></div>
+          </div>
+          <div class="detail-qty">50<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank r3">3</div>
+          <div class="detail-info">
+            <div class="detail-name">【试用】原浆特酿-16ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:67.2%"></div></div>
+          </div>
+          <div class="detail-qty">39<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank ">4</div>
+          <div class="detail-info">
+            <div class="detail-name">【试用】松茸菌菇酱油-16ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:67.2%"></div></div>
+          </div>
+          <div class="detail-qty">39<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank ">5</div>
+          <div class="detail-info">
+            <div class="detail-name">【试用】冰油-16ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:65.5%"></div></div>
+          </div>
+          <div class="detail-qty">38<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row mktg-hidden">
+          <div class="detail-rank ">6</div>
+          <div class="detail-info">
+            <div class="detail-name">会员手册</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:41.4%"></div></div>
+          </div>
+          <div class="detail-qty">24<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row mktg-hidden">
+          <div class="detail-rank ">7</div>
+          <div class="detail-info">
+            <div class="detail-name">勺子304</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:3.4%"></div></div>
+          </div>
+          <div class="detail-qty">2<span class="detail-unit">件</span></div>
+        </div>
+    <button class="toggle-btn" onclick="toggleDetail('mktg', this)">展开全部 <span class="arrow">&#9660;</span></button>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title">耗材出库明细</div>
+      <div class="section-badge">TOP 10</div>
+    </div>
+        <div class="detail-row">
+          <div class="detail-rank r1">1</div>
+          <div class="detail-info">
+            <div class="detail-name">珍珠棉-大瓶</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:100.0%"></div></div>
+          </div>
+          <div class="detail-qty">66<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank r2">2</div>
+          <div class="detail-info">
+            <div class="detail-name">珍珠棉-小瓶</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:71.2%"></div></div>
+          </div>
+          <div class="detail-qty">47<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank r3">3</div>
+          <div class="detail-info">
+            <div class="detail-name">纸箱-大瓶x2</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:36.4%"></div></div>
+          </div>
+          <div class="detail-qty">24<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank ">4</div>
+          <div class="detail-info">
+            <div class="detail-name">纸箱-大瓶x1</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:24.2%"></div></div>
+          </div>
+          <div class="detail-qty">16<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-rank ">5</div>
+          <div class="detail-info">
+            <div class="detail-name">纸箱-小瓶x1</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:24.2%"></div></div>
+          </div>
+          <div class="detail-qty">16<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row pkg-hidden">
+          <div class="detail-rank ">6</div>
+          <div class="detail-info">
+            <div class="detail-name">纸箱-小瓶x2</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:16.7%"></div></div>
+          </div>
+          <div class="detail-qty">11<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row pkg-hidden">
+          <div class="detail-rank ">7</div>
+          <div class="detail-info">
+            <div class="detail-name">珍珠棉-210ml</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:13.6%"></div></div>
+          </div>
+          <div class="detail-qty">9<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row pkg-hidden">
+          <div class="detail-rank ">8</div>
+          <div class="detail-info">
+            <div class="detail-name">纸箱-大瓶x2+小瓶x1</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:6.1%"></div></div>
+          </div>
+          <div class="detail-qty">4<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row pkg-hidden">
+          <div class="detail-rank ">9</div>
+          <div class="detail-info">
+            <div class="detail-name">珍珠棉袋子-175mm</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:3.0%"></div></div>
+          </div>
+          <div class="detail-qty">2<span class="detail-unit">件</span></div>
+        </div>
+        <div class="detail-row pkg-hidden">
+          <div class="detail-rank ">10</div>
+          <div class="detail-info">
+            <div class="detail-name">纸箱-210ml*3瓶</div>
+            <div class="detail-bar"><div class="detail-bar-fill" style="width:1.5%"></div></div>
+          </div>
+          <div class="detail-qty">1<span class="detail-unit">件</span></div>
+        </div>
+    <button class="toggle-btn" onclick="toggleDetail('pkg', this)">展开全部 <span class="arrow">&#9660;</span></button>
+  </div>
+
+  <div class="footer">数据来源：万里牛ERP | 生成时间：2026-07-15</div>
+</div>
+
+<script>
+function toggleDetail(prefix, btn) {
+  var rows = document.querySelectorAll('.' + prefix + '-hidden');
+  var expanded = rows[0] && rows[0].classList.contains('show');
+  rows.forEach(function(r) { r.classList.toggle('show', !expanded); });
+  btn.classList.toggle('expanded', !expanded);
+  btn.innerHTML = expanded ? '展开全部 <span class="arrow">&#9660;</span>' : '收起 <span class="arrow">&#9650;</span>';
+}
+
+(function() {
+  var c = echarts.init(document.getElementById('orderChart'));
+  c.setOption({
+    grid: { left: '0%', right: '0%', bottom: '3%', top: '8%', containLabel: false },
+    xAxis: { type: 'category', data: ["07-09", "07-10", "07-11", "07-12", "07-13", "07-14", "07-15"], axisLabel: { color: '#94a3b8', fontSize: 10 }, axisLine: { show: false }, axisTick: { show: false }, boundaryGap: false },
+    yAxis: { type: 'value', show: false, splitLine: { show: false } },
+    tooltip: { trigger: 'axis', backgroundColor: '#fff', borderColor: '#e2e8f0', textStyle: { color: '#1e293b', fontSize: 12 }, boxShadow: '0 2px 8px rgba(0,0,0,0.08)' },
+    series: [{ name: '订单数', type: 'line', data: [156, 149, 111, 135, 144, 153, 41], symbol: 'none', lineStyle: { width: 2.5, color: '#4f6ef7' }, smooth: true,
+      areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(79,110,247,0.12)' }, { offset: 1, color: 'rgba(79,110,247,0)' }] } } }]
+  });
+})();
+
+(function() {
+  var c = echarts.init(document.getElementById('stockChart'));
+  c.setOption({
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: '#fff',
+      borderColor: '#e2e8f0',
+      textStyle: { color: '#1e293b', fontSize: 12 },
+      boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+    },
+    legend: {
+      data: ['产品', '营销物料', '耗材'],
+      top: 0,
+      textStyle: { fontSize: 10, color: '#94a3b8' },
+      itemWidth: 8, itemHeight: 8, itemGap: 20
+    },
+    grid: { left: '0%', right: '0%', bottom: '3%', top: '10%' },
+    xAxis: {
+      type: 'category',
+      data: ["07-09", "07-10", "07-11", "07-12", "07-13", "07-14", "07-15"],
+      axisLabel: { color: '#94a3b8', fontSize: 10 },
+      axisLine: { show: false },
+      axisTick: { show: false },
+      boundaryGap: true
+    },
+    yAxis: { type: 'value', show: false, splitLine: { show: false } },
+    barGap: '10%',
+    barCategoryGap: '35%',
+    series: [
+      {
+        name: '产品',
+        type: 'bar',
+        barWidth: '25%',
+        itemStyle: { borderRadius: [3,3,0,0], color: '#4f6ef7' },
+        data: [201, 180, 198, 178, 178, 177, 123]
+      },
+      {
+        name: '营销物料',
+        type: 'bar',
+        barWidth: '25%',
+        itemStyle: { borderRadius: [3,3,0,0], color: '#818cf8' },
+        data: [450, 407, 345, 610, 409, 400, 250]
+      },
+      {
+        name: '耗材',
+        type: 'bar',
+        barWidth: '25%',
+        itemStyle: { borderRadius: [3,3,0,0], color: '#c7d2fe' },
+        data: [323, 401, 322, 292, 291, 306, 196]
+      }
+    ]
+  });
+})();
+</script>
+</body>
+</html>
